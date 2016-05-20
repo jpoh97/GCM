@@ -20,10 +20,15 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -150,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
         final String user = mUsernameEditText.getText().toString();
         final String email = mEmailEditText.getText().toString();
 
-        String url = "http://localhost:3000/api/gcmusers";
+        String url = Util.SERVER_URL;
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>()
                 {
@@ -168,14 +173,16 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("Error.Response", error.toString());
                     }
                 }
-        ) {
+        )
+
+        {
             @Override
             protected Map<String, String> getParams()
             {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("name", user);
-                params.put("email", email);
                 params.put("gcmid", regid);
+                params.put("GCMUser", user);
+                params.put("email", email);
 
                 return params;
             }
@@ -183,7 +190,6 @@ public class MainActivity extends AppCompatActivity {
         queue.add(postRequest);
 
     }
-
 
 
     /*private class SendToServerTask extends AsyncTask<Void, Void, String> {

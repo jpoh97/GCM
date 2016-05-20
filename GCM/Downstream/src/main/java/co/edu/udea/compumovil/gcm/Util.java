@@ -11,6 +11,7 @@ public class Util {
     public static final String SENDER_ID = "268651802691";
     public static final String TOKEN = "token";
 
-    public static final String SERVER_URL = "https://gcmserver-jaibercom.c9users.io/";
+    public static final String SERVER_URL = "http://gcm-jpoh97.c9users.io:8080/api/GCMUsers";
+    public static final String SERVER_URL_PUSH = "http://gcm-jpoh97.c9users.io:8080/api/GCMUsers/push";
 
 }
