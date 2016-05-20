@@ -181,13 +181,48 @@ public class MainActivity extends AppCompatActivity {
             {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("gcmid", regid);
-                params.put("GCMUser", user);
+                params.put("name", user);
                 params.put("email", email);
 
                 return params;
             }
         };
         queue.add(postRequest);
+
+
+        String url2 = Util.SERVER_URL_PUSH;
+        StringRequest postRequest2 = new StringRequest(Request.Method.POST, url2,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        )
+
+        {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("username", user);
+                params.put("message", email);
+
+                return params;
+            }
+        };
+        queue.add(postRequest2);
+
 
     }
 
